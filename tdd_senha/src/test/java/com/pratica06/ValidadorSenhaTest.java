@@ -51,4 +51,35 @@ void senhaSemCaractereEspecialDeveSerInvalida() {
             "A senha deve conter pelo menos um caractere especial"
     ));
 }
+@Test
+void senhaComMultiplosErrosDeveRetornarTodos() {
+    ValidadorSenha validador = new ValidadorSenha();
+
+    ResultadoValidacao resultado = validador.validar("mypass");
+
+    assertFalse(resultado.isValido());
+    assertEquals(4, resultado.getErros().size());
+
+    assertTrue(resultado.getErros().contains(
+            "A senha deve ter pelo menos 8 caracteres"
+    ));
+    assertTrue(resultado.getErros().contains(
+            "A senha deve conter pelo menos 2 dígitos"
+    ));
+    assertTrue(resultado.getErros().contains(
+            "A senha deve conter pelo menos uma letra maiuscula"
+    ));
+    assertTrue(resultado.getErros().contains(
+            "A senha deve conter pelo menos um caractere especial"
+    ));
+}
+@Test
+void senhaQueAtendeTodosOsRequisitosDeveSerValida() {
+    ValidadorSenha validador = new ValidadorSenha();
+
+    ResultadoValidacao resultado = validador.validar("Abcdef@12");
+
+    assertTrue(resultado.isValido());
+    assertTrue(resultado.getErros().isEmpty());
+}
 }
