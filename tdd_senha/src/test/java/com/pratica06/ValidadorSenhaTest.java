@@ -40,5 +40,15 @@ void senhaSemLetraMaiusculaDeveSerInvalida() {
             "A senha deve conter pelo menos uma letra maiuscula"
     ));
 }
+@Test
+void senhaSemCaractereEspecialDeveSerInvalida() {
+    ValidadorSenha validador = new ValidadorSenha();
 
+    ResultadoValidacao resultado = validador.validar("Abcdef12");
+
+    assertFalse(resultado.isValido());
+    assertTrue(resultado.getErros().contains(
+            "A senha deve conter pelo menos um caractere especial"
+    ));
+}
 }
